@@ -4,228 +4,237 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chapter 2 · Addition</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --orange:#FF7926;--orange2:#E8590C;--yellow:#FFD43B;
-  --red:#FF3B3B;--green:#2F9E44;--cream:#FFFBF0;
-  --stripe1:#FF7926;--stripe2:#FFD43B;
+  --accent:#D97706;--accent-light:#FEF3C7;--accent-mid:#FDE68A;
+  --accent-dark:#B45309;--bg:#F7F8FA;--surface:#FFFFFF;
+  --ink:#1C2B2B;--ink2:#4B6060;--border:#E4EAE9;
+  --success:#16A34A;--success-bg:#DCFCE7;
+  --error:#DC2626;--error-bg:#FEE2E2;
 }
-html,body{width:100%;min-height:100vh}
-body{
-  font-family:'Nunito',sans-serif;
-  background:#FFF5E0;
-  min-height:100vh;padding:0 0 32px;
-  display:flex;flex-direction:column;align-items:center;
-}
-/* Awning stripes at top */
-.awning{
-  width:100%;height:60px;
-  background:repeating-linear-gradient(90deg,var(--stripe1) 0px,var(--stripe1) 40px,var(--stripe2) 40px,var(--stripe2) 80px);
-  position:relative;overflow:hidden;
-  box-shadow:0 4px 12px rgba(0,0,0,.2);
-}
-.awning::after{
-  content:'';position:absolute;bottom:-1px;left:0;right:0;height:20px;
-  background:repeating-linear-gradient(90deg,var(--stripe1) 0px,var(--stripe1) 40px,var(--stripe2) 40px,var(--stripe2) 80px);
-  clip-path:polygon(0 0,2.5% 100%,5% 0,7.5% 100%,10% 0,12.5% 100%,15% 0,17.5% 100%,20% 0,22.5% 100%,25% 0,27.5% 100%,30% 0,32.5% 100%,35% 0,37.5% 100%,40% 0,42.5% 100%,45% 0,47.5% 100%,50% 0,52.5% 100%,55% 0,57.5% 100%,60% 0,62.5% 100%,65% 0,67.5% 100%,70% 0,72.5% 100%,75% 0,77.5% 100%,80% 0,82.5% 100%,85% 0,87.5% 100%,90% 0,92.5% 100%,95% 0,97.5% 100%,100% 0);
-}
+html,body{width:100%;min-height:100vh;font-family:'Nunito',sans-serif;background:var(--bg);color:var(--ink)}
+
 .header{
-  background:var(--orange2);padding:14px 20px 10px;width:100%;
-  display:flex;align-items:center;justify-content:space-between;
+  width:100%;background:var(--surface);border-bottom:2px solid var(--border);
+  padding:16px 20px 0;display:flex;flex-direction:column;align-items:center;
+  position:sticky;top:0;z-index:100;
 }
-.h-title{font-family:'Fredoka One',cursive;font-size:26px;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.2)}
-.h-chip{background:var(--yellow);color:#3A2A00;font-size:12px;font-weight:900;padding:5px 14px;border-radius:20px;border:2px solid rgba(0,0,0,.1)}
+.header-row{width:100%;max-width:640px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.chapter-label{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);background:var(--accent-light);padding:4px 12px;border-radius:20px}
+.header-title{font-size:20px;font-weight:900;color:var(--ink)}
+.tabs{display:flex;gap:4px;width:100%;max-width:640px}
+.tab{flex:1;padding:10px 0;text-align:center;font-size:14px;font-weight:800;cursor:pointer;border-bottom:3px solid transparent;color:var(--ink2);transition:all .2s;border-radius:8px 8px 0 0}
+.tab:hover{color:var(--accent);background:var(--accent-light)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
 
-.page{width:100%;max-width:680px;padding:16px;display:flex;flex-direction:column;gap:20px}
+.page{width:100%;max-width:640px;margin:0 auto;padding:24px 16px 40px;display:flex;flex-direction:column;gap:20px}
+.panel{display:none}.panel.active{display:flex;flex-direction:column;gap:20px}
 
-.mcard{
-  background:var(--cream);border-radius:24px;padding:20px;
-  box-shadow:0 6px 0 rgba(0,0,0,.1),0 2px 16px rgba(0,0,0,.08);
-  border:3px solid rgba(255,255,255,.9);position:relative;overflow:hidden;
-}
-.mcard::before{content:'';position:absolute;top:0;left:0;right:0;height:5px}
-.mcard.orange::before{background:var(--orange)}
-.mcard.red::before{background:var(--red)}
-.mcard.green::before{background:var(--green)}
-.mc-title{font-family:'Fredoka One',cursive;font-size:19px;color:#3A2A00;margin-bottom:4px}
-.hint{font-size:13px;font-weight:700;color:#8B5E1A;margin-bottom:14px;line-height:1.5}
+.card{background:var(--surface);border-radius:16px;padding:22px;border:1.5px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.05);position:relative}
+.card-accent{position:absolute;top:0;left:0;bottom:0;width:4px;border-radius:16px 0 0 16px}
+.card-accent.amber{background:var(--accent)}
+.card-accent.green{background:#16A34A}
+.card-title{font-size:17px;font-weight:900;color:var(--ink);margin-bottom:4px;padding-left:12px}
+.card-sub{font-size:13px;font-weight:700;color:var(--ink2);margin-bottom:20px;padding-left:12px;line-height:1.5}
 
-/* Baskets */
-.baskets-layout{display:flex;gap:14px;justify-content:center;align-items:flex-end;flex-wrap:wrap;margin-bottom:16px}
-.bwrap{display:flex;flex-direction:column;align-items:center;gap:6px}
-.blabel{font-family:'Fredoka One',cursive;font-size:14px;color:var(--orange2);text-transform:uppercase;letter-spacing:.06em}
+/* ── BASKET ACTIVITY ── */
+.baskets-row{display:flex;gap:12px;align-items:flex-start;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.bwrap{display:flex;flex-direction:column;align-items:center;gap:8px;flex:1;min-width:130px;max-width:180px}
+.basket-label{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--accent)}
 .basket{
-  width:150px;min-height:120px;
-  background:linear-gradient(180deg,#FFFBE6 0%,#FFF3CC 100%);
-  border:3px solid #FFA94D;border-radius:14px 14px 28px 28px;
+  width:100%;min-height:110px;
+  background:var(--accent-light);border:2px solid var(--accent-mid);
+  border-radius:12px 12px 20px 20px;
   padding:10px;display:flex;flex-wrap:wrap;gap:4px;align-content:flex-start;
   cursor:pointer;transition:all .18s;position:relative;
 }
-.basket::after{
-  content:'';position:absolute;bottom:-14px;left:14px;right:14px;
-  height:12px;background:var(--orange);border-radius:0 0 8px 8px;
-}
-.basket:hover{border-color:var(--orange);transform:scale(1.02)}
+.basket:hover{border-color:var(--accent);background:#FEF9E8}
 .basket:active{transform:scale(.97)}
-.basket-ph{font-size:12px;color:#D97706;font-weight:700;padding:10px;width:100%;text-align:center}
-.fruit{font-size:26px;line-height:1;animation:fruitPop .2s cubic-bezier(.36,1.7,.6,1);display:inline-block;user-select:none}
+.basket-ph{font-size:12px;color:var(--accent-dark);font-weight:700;width:100%;text-align:center;padding-top:10px}
+.fruit{font-size:26px;line-height:1;animation:fruitPop .18s cubic-bezier(.36,1.7,.6,1);display:inline-block;user-select:none}
 @keyframes fruitPop{from{transform:scale(0)}to{transform:scale(1)}}
-.bcount{font-family:'Fredoka One',cursive;font-size:40px;color:var(--orange2);margin-top:6px}
-.bbtns{display:flex;gap:6px;margin-top:4px}
-.bbtn{
-  width:32px;height:32px;border-radius:50%;border:none;
-  font-size:18px;font-weight:900;background:var(--yellow);color:#3A2A00;
-  cursor:pointer;transition:transform .1s;box-shadow:0 2px 0 rgba(0,0,0,.12);
+.basket-count{font-size:38px;font-weight:900;color:var(--accent-dark)}
+.basket-btns{display:flex;gap:6px}
+.bmbtn{
+  width:30px;height:30px;border-radius:50%;border:2px solid var(--accent-mid);
+  background:var(--surface);font-size:16px;font-weight:900;color:var(--accent-dark);
+  cursor:pointer;transition:all .1s;display:flex;align-items:center;justify-content:center;
 }
-.bbtn:active{transform:scale(.88)}
+.bmbtn:active{transform:scale(.88)}
 
-.plus-sign{font-family:'Fredoka One',cursive;font-size:52px;color:var(--yellow);align-self:center;margin-bottom:16px;text-shadow:0 3px 0 var(--orange)}
-
-.eq-preview{
-  text-align:center;
-  font-family:'Fredoka One',cursive;font-size:26px;color:#3A2A00;
-  margin:12px 0;min-height:34px;
+.plus-divider{
+  font-size:36px;font-weight:900;color:var(--accent-mid);
+  align-self:center;margin-top:30px;flex-shrink:0;
 }
-.eq-preview .q{color:#CCC}
 
-.type-row{display:flex;align-items:center;gap:10px;justify-content:center;flex-wrap:wrap;margin:10px 0}
-.type-lbl{font-family:'Fredoka One',cursive;font-size:17px;color:#3A2A00}
-.type-inp{
-  font-family:'Fredoka One',cursive;font-size:30px;width:84px;height:58px;
-  border-radius:16px;border:3px solid #FFA94D;text-align:center;
-  color:var(--orange2);outline:none;transition:border-color .15s;background:#FFF8EC;
+/* equation display */
+.eq-display{
+  text-align:center;font-size:26px;font-weight:900;color:var(--ink);
+  background:var(--bg);border-radius:12px;padding:12px;border:1.5px solid var(--border);
+  margin-bottom:16px;min-height:52px;display:flex;align-items:center;justify-content:center;gap:10px;
+}
+.eq-q{color:var(--border)}
+.eq-answer{color:var(--success)}
+
+/* answer input */
+.answer-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.answer-label{font-size:14px;font-weight:800;color:var(--ink2)}
+.answer-inp{
+  font-size:28px;font-weight:900;width:80px;height:56px;border-radius:12px;
+  border:2px solid var(--border);text-align:center;color:var(--accent-dark);
+  outline:none;transition:border-color .15s;background:var(--accent-light);
   -moz-appearance:textfield;
 }
-.type-inp::-webkit-outer-spin-button,.type-inp::-webkit-inner-spin-button{-webkit-appearance:none}
-.type-inp:focus{border-color:var(--orange)}
+.answer-inp::-webkit-outer-spin-button,.answer-inp::-webkit-inner-spin-button{-webkit-appearance:none}
+.answer-inp:focus{border-color:var(--accent)}
 .check-btn{
-  background:linear-gradient(135deg,var(--orange),var(--orange2));
-  color:#fff;border:none;border-radius:16px;padding:14px 26px;
-  font-family:'Fredoka One',cursive;font-size:17px;cursor:pointer;
-  box-shadow:0 4px 0 rgba(0,0,0,.15);transition:all .18s;
+  background:var(--accent);color:#fff;border:none;border-radius:12px;
+  padding:12px 22px;font-size:15px;font-weight:800;cursor:pointer;transition:all .18s;
 }
-.check-btn:hover{transform:scale(1.06)}
-.check-btn:active{transform:scale(.96);box-shadow:none}
-.type-fb{font-family:'Fredoka One',cursive;font-size:18px;text-align:center;min-height:24px;margin-top:6px}
+.check-btn:hover{background:var(--accent-dark);transform:translateY(-1px)}
+.type-fb{font-size:15px;font-weight:800;min-height:22px;margin-top:6px;text-align:center}
 
-/* Combine zone */
-.combine-zone{display:none;flex-direction:column;align-items:center;gap:10px;margin-top:12px}
+/* combined reveal */
+.combined-reveal{display:none;flex-direction:column;align-items:center;gap:10px;margin-top:14px;padding-top:14px;border-top:1.5px solid var(--border)}
 .combined-basket{
-  min-width:190px;min-height:90px;
-  background:linear-gradient(180deg,#CCFFDD 0%,#A8F0C0 100%);
-  border:3px solid var(--green);border-radius:14px 14px 28px 28px;
-  padding:10px;display:flex;flex-wrap:wrap;gap:4px;align-content:flex-start;
-  position:relative;
+  min-width:200px;min-height:80px;background:var(--success-bg);border:2px solid #86EFAC;
+  border-radius:12px 12px 20px 20px;padding:10px;display:flex;flex-wrap:wrap;gap:4px;align-content:flex-start;
 }
-.combined-basket::after{content:'';position:absolute;bottom:-14px;left:14px;right:14px;height:12px;background:var(--green);border-radius:0 0 8px 8px;}
-.combined-eq{font-family:'Fredoka One',cursive;font-size:30px;color:#1A5C25;margin-top:14px}
-.combined-eq .ans{color:var(--green);font-size:38px}
-.reset-btn{background:#fff;border:2.5px solid #FFA94D;color:var(--orange2);font-family:'Fredoka One',cursive;font-size:15px;padding:9px 22px;border-radius:14px;cursor:pointer;margin-top:8px}
+.combined-eq{font-size:28px;font-weight:900;color:var(--success)}
+.reset-btn{background:var(--surface);border:2px solid var(--border);color:var(--ink2);font-size:14px;font-weight:800;padding:9px 20px;border-radius:10px;cursor:pointer;transition:all .15s}
+.reset-btn:hover{border-color:var(--accent);color:var(--accent)}
 
-/* Quiz */
+/* ── PRACTICE ── */
+.score-bar{display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:10px;padding:10px 14px;border:1.5px solid var(--border)}
+.score-label{font-size:12px;font-weight:800;color:var(--ink2);flex:1}
+.score-nums{font-size:14px;font-weight:900;color:var(--accent)}
+
+.fruit-pair{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
 .fruit-box{
-  background:#FFFBE6;border-radius:12px;padding:8px;
-  display:flex;flex-wrap:wrap;gap:4px;
-  border:2.5px solid #FDE68A;min-height:44px;max-width:170px;align-items:center;
+  background:var(--accent-light);border:1.5px solid var(--accent-mid);
+  border-radius:10px;padding:8px;display:flex;flex-wrap:wrap;gap:3px;
+  min-width:60px;max-width:160px;align-items:center;
 }
-.quiz-scene{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
-.opts{display:flex;gap:8px;flex-wrap:wrap}
-.opt{
-  font-family:'Fredoka One',cursive;font-size:24px;min-width:68px;height:54px;
-  border-radius:14px;border:3px solid #FDE68A;background:#fff;cursor:pointer;
-  color:#3A2A00;transition:all .14s;padding:0 12px;box-shadow:0 3px 0 rgba(0,0,0,.1);
-}
-.opt:hover{border-color:var(--orange);transform:scale(1.06);background:#FFF5EB}
-.opt.correct{background:#CCFFD0;border-color:var(--green);color:#1A5C25}
-.opt.wrong{background:#FFE0E0;border-color:#FF6B6B;color:#C92A2A}
-.quiz-fb{font-family:'Fredoka One',cursive;font-size:17px;min-height:22px;margin-top:10px;text-align:center}
-.next-btn{
-  margin-top:12px;background:linear-gradient(135deg,var(--orange),var(--orange2));
-  color:#fff;border:none;border-radius:16px;padding:12px 28px;
-  font-family:'Fredoka One',cursive;font-size:17px;cursor:pointer;
-  box-shadow:0 4px 0 rgba(0,0,0,.15);transition:all .18s;
-}
-.next-btn:hover{transform:scale(1.06)}
+.fruit-box.b{background:#F0FFF4;border-color:#86EFAC}
+.pair-plus{font-size:28px;font-weight:900;color:var(--accent-mid);align-self:center}
+.pair-eq{font-size:28px;font-weight:900;color:var(--border);align-self:center}
+
+.opts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.opt{font-size:22px;font-weight:900;min-width:68px;height:52px;border-radius:12px;border:2px solid var(--border);background:var(--surface);cursor:pointer;color:var(--ink);transition:all .14s;padding:0 14px}
+.opt:hover{border-color:var(--accent);background:var(--accent-light);transform:translateY(-2px)}
+.opt:active{transform:translateY(0)}
+.opt.correct{background:var(--success-bg);border-color:var(--success);color:var(--success)}
+.opt.wrong{background:var(--error-bg);border-color:var(--error);color:var(--error)}
+.quiz-fb{font-size:15px;font-weight:800;min-height:22px;margin-top:12px;text-align:center}
+.next-btn{margin-top:14px;background:var(--accent);color:#fff;border:none;border-radius:12px;padding:12px 26px;font-size:15px;font-weight:800;cursor:pointer;transition:all .18s;align-self:flex-start}
+.next-btn:hover{background:var(--accent-dark);transform:translateY(-1px)}
 </style>
 </head>
 <body>
-<div class="awning"></div>
+
 <div class="header">
-  <div class="h-title">🍎 Addition</div>
-  <div class="h-chip">Chapter 2</div>
+  <div class="header-row">
+    <span class="chapter-label">Chapter 2</span>
+    <span class="header-title">Addition</span>
+  </div>
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('learn')">Learn</div>
+    <div class="tab" onclick="switchTab('practice')">Practice</div>
+  </div>
 </div>
 
 <div class="page">
 
-  <!-- Basket activity -->
-  <div class="mcard orange">
-    <div class="mc-title">🧺 Fill the baskets with fruit!</div>
-    <div class="hint">Tap Basket A to add 🍎 — tap Basket B to add 🍏. Then work out the total yourself!</div>
+  <!-- LEARN PANEL -->
+  <div class="panel active" id="panel-learn">
+    <div class="card">
+      <div class="card-accent amber"></div>
+      <div class="card-title">Fill the baskets with fruit</div>
+      <div class="card-sub">Tap Basket A to add 🍎, tap Basket B to add 🍊. Then work out the total.</div>
 
-    <div class="baskets-layout">
-      <div class="bwrap">
-        <span class="blabel">Basket A</span>
-        <div class="basket" id="basketA" onclick="addFruit('A')">
-          <span class="basket-ph" id="hintA">👆 Tap to add!</span>
+      <div class="baskets-row">
+        <div class="bwrap">
+          <span class="basket-label">Basket A</span>
+          <div class="basket" id="basketA" onclick="addFruit('A')">
+            <span class="basket-ph" id="hintA">Tap to add fruit</span>
+          </div>
+          <div class="basket-count" id="countA">0</div>
+          <div class="basket-btns">
+            <button class="bmbtn" onclick="removeFruit('A')">−</button>
+            <button class="bmbtn" onclick="addFruit('A')">+</button>
+          </div>
         </div>
-        <div class="bcount" id="countA">0</div>
-        <div class="bbtns">
-          <button class="bbtn" onclick="removeFruit('A')">−</button>
-          <button class="bbtn" onclick="addFruit('A')">+</button>
+
+        <div class="plus-divider">+</div>
+
+        <div class="bwrap">
+          <span class="basket-label">Basket B</span>
+          <div class="basket" id="basketB" onclick="addFruit('B')" style="background:#F0FFF4;border-color:#86EFAC">
+            <span class="basket-ph" id="hintB" style="color:#16A34A">Tap to add fruit</span>
+          </div>
+          <div class="basket-count" id="countB" style="color:#16A34A">0</div>
+          <div class="basket-btns">
+            <button class="bmbtn" onclick="removeFruit('B')" style="border-color:#86EFAC;color:#16A34A">−</button>
+            <button class="bmbtn" onclick="addFruit('B')" style="border-color:#86EFAC;color:#16A34A">+</button>
+          </div>
         </div>
       </div>
-      <div class="plus-sign">+</div>
-      <div class="bwrap">
-        <span class="blabel">Basket B</span>
-        <div class="basket" id="basketB" onclick="addFruit('B')">
-          <span class="basket-ph" id="hintB">👆 Tap to add!</span>
-        </div>
-        <div class="bcount" id="countB">0</div>
-        <div class="bbtns">
-          <button class="bbtn" onclick="removeFruit('B')">−</button>
-          <button class="bbtn" onclick="addFruit('B')">+</button>
-        </div>
+
+      <div class="eq-display">
+        <span id="epA">0</span> + <span id="epB">0</span> = <span class="eq-q" id="epQ">?</span>
       </div>
-    </div>
 
-    <div class="eq-preview"><span id="epA">0</span> + <span id="epB">0</span> = <span class="q">?</span></div>
+      <div class="answer-row">
+        <span class="answer-label">I think the answer is</span>
+        <input type="number" class="answer-inp" id="myAnswer" min="0" max="18" placeholder="?" oninput="clearFb()">
+        <button class="check-btn" onclick="checkAnswer()">Check ✓</button>
+      </div>
+      <div class="type-fb" id="typeFb"></div>
 
-    <div class="type-row">
-      <span class="type-lbl">I think the answer is</span>
-      <input type="number" class="type-inp" id="myAnswer" min="0" max="18" placeholder="?" oninput="clearFb()">
-      <button class="check-btn" onclick="checkAnswer()">Check! ✓</button>
-    </div>
-    <div class="type-fb" id="typeFb"></div>
-
-    <div class="combine-zone" id="combineZone">
-      <div style="font-family:'Fredoka One',cursive;font-size:16px;color:#1A5C25">All together! 🎉</div>
-      <div class="combined-basket" id="combinedBasket"></div>
-      <div class="combined-eq" id="combinedEq"></div>
-      <button class="reset-btn" onclick="resetBaskets()">Start fresh ↻</button>
+      <div class="combined-reveal" id="combinedReveal">
+        <div style="font-size:13px;font-weight:800;color:var(--success)">All together!</div>
+        <div class="combined-basket" id="combinedBasket"></div>
+        <div class="combined-eq" id="combinedEq"></div>
+        <button class="reset-btn" onclick="resetBaskets()">Start again ↻</button>
+      </div>
     </div>
   </div>
 
-  <!-- Quiz -->
-  <div class="mcard green">
-    <div class="mc-title">🌟 Picture question!</div>
-    <div class="hint">Count the fruit in each box, add them, then pick the right answer!</div>
-    <div class="quiz-scene" id="quizScene"></div>
-    <div style="font-family:'Fredoka One',cursive;font-size:18px;color:#3A2A00;margin-bottom:4px" id="quizEq"></div>
-    <div class="opts" id="quizOpts"></div>
-    <div class="quiz-fb" id="quizFb"></div>
-    <button class="next-btn" onclick="newQuiz()">Next question ➡️</button>
+  <!-- PRACTICE PANEL -->
+  <div class="panel" id="panel-practice">
+    <div class="score-bar">
+      <span class="score-label">Questions answered</span>
+      <span class="score-nums" id="scoreDisplay">0 correct / 0 total</span>
+    </div>
+    <div class="card">
+      <div class="card-accent green"></div>
+      <div class="card-title">Count the fruit and add them up</div>
+      <div class="card-sub">Count the fruit in each box, then pick the right total.</div>
+      <div class="fruit-pair" id="fruitPair"></div>
+      <div style="font-size:18px;font-weight:800;color:var(--ink);margin-bottom:12px" id="quizEqLine"></div>
+      <div class="opts" id="quizOpts"></div>
+      <div class="quiz-fb" id="quizFb"></div>
+      <button class="next-btn" onclick="newQuiz()">Next question →</button>
+    </div>
   </div>
 
 </div>
 
 <script>
+function switchTab(name){
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',['learn','practice'][i]===name));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+name).classList.add('active');
+}
+
+/* ── BASKET ACTIVITY ── */
 let nA=0,nB=0,answered=false;
+const MAX=9;
 
 function addFruit(side){
   if(answered)return;
-  const MAX=9;
   if(side==='A'&&nA<MAX){
     nA++;
     const b=document.getElementById('basketA');
@@ -235,63 +244,74 @@ function addFruit(side){
     nB++;
     const b=document.getElementById('basketB');
     const h=document.getElementById('hintB');if(h)h.remove();
-    const sp=document.createElement('span');sp.className='fruit';sp.textContent='🍏';b.appendChild(sp);
+    const sp=document.createElement('span');sp.className='fruit';sp.textContent='🍊';b.appendChild(sp);
   }
-  update();
+  updateEq();
 }
 function removeFruit(side){
   if(answered)return;
-  if(side==='A'&&nA>0){nA--;const b=document.getElementById('basketA');const l=b.querySelector('.fruit:last-child');if(l)l.remove();if(!nA)b.innerHTML='<span class="basket-ph" id="hintA">👆 Tap to add!</span>';}
-  else if(side==='B'&&nB>0){nB--;const b=document.getElementById('basketB');const l=b.querySelector('.fruit:last-child');if(l)l.remove();if(!nB)b.innerHTML='<span class="basket-ph" id="hintB">👆 Tap to add!</span>';}
-  update();
+  if(side==='A'&&nA>0){nA--;const b=document.getElementById('basketA');const l=b.querySelector('.fruit:last-child');if(l)l.remove();if(!nA)b.innerHTML='<span class="basket-ph" id="hintA">Tap to add fruit</span>';}
+  else if(side==='B'&&nB>0){nB--;const b=document.getElementById('basketB');const l=b.querySelector('.fruit:last-child');if(l)l.remove();if(!nB)b.innerHTML='<span class="basket-ph" id="hintB" style="color:#16A34A">Tap to add fruit</span>';}
+  updateEq();
 }
-function update(){
-  document.getElementById('countA').textContent=nA;document.getElementById('countB').textContent=nB;
-  document.getElementById('epA').textContent=nA;document.getElementById('epB').textContent=nB;
+function updateEq(){
+  document.getElementById('countA').textContent=nA;
+  document.getElementById('countB').textContent=nB;
+  document.getElementById('epA').textContent=nA;
+  document.getElementById('epB').textContent=nB;
 }
 function clearFb(){document.getElementById('typeFb').textContent='';}
 function checkAnswer(){
-  if(!nA&&!nB){document.getElementById('typeFb').textContent='Add some fruit first! 🍎';document.getElementById('typeFb').style.color='#D97706';return;}
+  if(!nA&&!nB){document.getElementById('typeFb').textContent='Add some fruit first!';document.getElementById('typeFb').style.color='var(--accent)';return;}
   const val=parseInt(document.getElementById('myAnswer').value);
   const correct=nA+nB;const fb=document.getElementById('typeFb');
-  if(val===correct){fb.textContent='🎉 Yes! '+nA+' + '+nB+' = '+correct+'! Brilliant! ⭐';fb.style.color='#2F9E44';showCombined();answered=true;}
-  else if(isNaN(val)){fb.textContent='Type a number in the box!';fb.style.color='#D97706';}
-  else if(val<correct){fb.textContent='Too small! Count all the fruit — both baskets!';fb.style.color='#E03131';}
-  else{fb.textContent='Too big! Count more carefully!';fb.style.color='#E03131';}
+  if(val===correct){
+    fb.textContent='Yes! '+nA+' + '+nB+' = '+correct+'.';fb.style.color='var(--success)';
+    document.getElementById('epQ').textContent=correct;document.getElementById('epQ').style.color='var(--success)';
+    showCombined();answered=true;
+  } else if(isNaN(val)){fb.textContent='Type a number in the box.';fb.style.color='var(--accent)';}
+  else if(val<correct){fb.textContent='Too small — count all the fruit in both baskets!';fb.style.color='var(--error)';}
+  else{fb.textContent='Too big — count more carefully!';fb.style.color='var(--error)';}
 }
 function showCombined(){
-  const cz=document.getElementById('combineZone');cz.style.display='flex';
+  const r=document.getElementById('combinedReveal');r.style.display='flex';
   const cb=document.getElementById('combinedBasket');cb.innerHTML='';
   for(let i=0;i<nA;i++){const s=document.createElement('span');s.className='fruit';s.textContent='🍎';cb.appendChild(s);}
-  for(let i=0;i<nB;i++){const s=document.createElement('span');s.className='fruit';s.textContent='🍏';cb.appendChild(s);}
-  document.getElementById('combinedEq').innerHTML=nA+' + '+nB+' = <span class="ans">'+(nA+nB)+'</span>';
+  for(let i=0;i<nB;i++){const s=document.createElement('span');s.className='fruit';s.textContent='🍊';cb.appendChild(s);}
+  document.getElementById('combinedEq').textContent=nA+' + '+nB+' = '+(nA+nB);
 }
 function resetBaskets(){
   nA=0;nB=0;answered=false;
-  document.getElementById('basketA').innerHTML='<span class="basket-ph" id="hintA">👆 Tap to add!</span>';
-  document.getElementById('basketB').innerHTML='<span class="basket-ph" id="hintB">👆 Tap to add!</span>';
+  document.getElementById('basketA').innerHTML='<span class="basket-ph" id="hintA">Tap to add fruit</span>';
+  document.getElementById('basketB').innerHTML='<span class="basket-ph" id="hintB" style="color:#16A34A">Tap to add fruit</span>';
   document.getElementById('countA').textContent='0';document.getElementById('countB').textContent='0';
   document.getElementById('epA').textContent='0';document.getElementById('epB').textContent='0';
+  document.getElementById('epQ').textContent='?';document.getElementById('epQ').style.color='var(--border)';
   document.getElementById('myAnswer').value='';document.getElementById('typeFb').textContent='';
-  document.getElementById('combineZone').style.display='none';
+  document.getElementById('combinedReveal').style.display='none';
 }
 
-/* Quiz */
+/* ── QUIZ ── */
+let correct=0,total=0;
+const EMOJIS=['🍎','🍊','🍋','🍇','🍓','🫐','🍑'];
 let qa=0,qb=0;
-const EMOJIS=['🍎','🍊','🍋','🍇','🍓','🫐'];
+
+function updateScore(){document.getElementById('scoreDisplay').textContent=correct+' correct / '+total+' total';}
+
 function newQuiz(){
   qa=Math.floor(Math.random()*7)+1;qb=Math.floor(Math.random()*7)+1;
   const ans=qa+qb;const em=EMOJIS[Math.floor(Math.random()*EMOJIS.length)];
+  const em2=EMOJIS.filter(e=>e!==em)[Math.floor(Math.random()*6)];
   document.getElementById('quizFb').textContent='';
-  const scene=document.getElementById('quizScene');scene.innerHTML='';
+  const pair=document.getElementById('fruitPair');pair.innerHTML='';
   const boxA=document.createElement('div');boxA.className='fruit-box';
   for(let i=0;i<qa;i++){const s=document.createElement('span');s.style.fontSize='22px';s.textContent=em;boxA.appendChild(s);}
-  const pl=document.createElement('span');pl.style.cssText='font-family:"Fredoka One",cursive;font-size:34px;color:#FFA94D;align-self:center;';pl.textContent='+';
-  const boxB=document.createElement('div');boxB.className='fruit-box';boxB.style.background='#E8FFEE';boxB.style.borderColor='#A7F3D0';
-  for(let i=0;i<qb;i++){const s=document.createElement('span');s.style.fontSize='22px';s.textContent=em;boxB.appendChild(s);}
-  const eq2=document.createElement('span');eq2.style.cssText='font-family:"Fredoka One",cursive;font-size:34px;color:#FFA94D;align-self:center;';eq2.textContent='= ?';
-  scene.appendChild(boxA);scene.appendChild(pl);scene.appendChild(boxB);scene.appendChild(eq2);
-  document.getElementById('quizEq').textContent=qa+' + '+qb+' = ?';
+  const pl=document.createElement('span');pl.className='pair-plus';pl.textContent='+';
+  const boxB=document.createElement('div');boxB.className='fruit-box b';
+  for(let i=0;i<qb;i++){const s=document.createElement('span');s.style.fontSize='22px';s.textContent=em2;boxB.appendChild(s);}
+  const eq2=document.createElement('span');eq2.className='pair-eq';eq2.textContent='= ?';
+  pair.appendChild(boxA);pair.appendChild(pl);pair.appendChild(boxB);pair.appendChild(eq2);
+  document.getElementById('quizEqLine').textContent=qa+' + '+qb+' = ?';
   const pool=new Set([ans]);
   while(pool.size<4){const w=ans+[-2,-1,1,2][Math.floor(Math.random()*4)];if(w>0&&w<=16)pool.add(w);}
   const opts=document.getElementById('quizOpts');opts.innerHTML='';
@@ -299,9 +319,10 @@ function newQuiz(){
     const b=document.createElement('button');b.className='opt';b.textContent=n;
     b.onclick=()=>{
       document.querySelectorAll('#quizOpts .opt').forEach(x=>x.onclick=null);
-      const fb=document.getElementById('quizFb');
-      if(n===ans){b.classList.add('correct');fb.textContent='🎉 '+qa+' + '+qb+' = '+ans+'! Correct! ⭐';fb.style.color='#2F9E44';}
-      else{b.classList.add('wrong');fb.textContent='Count the fruit carefully! The answer is '+ans+'.';fb.style.color='#E03131';document.querySelectorAll('#quizOpts .opt').forEach(x=>{if(parseInt(x.textContent)===ans)x.classList.add('correct');});}
+      total++;const fb=document.getElementById('quizFb');
+      if(n===ans){correct++;b.classList.add('correct');fb.textContent='Correct! '+qa+' + '+qb+' = '+ans+'.';fb.style.color='var(--success)';}
+      else{b.classList.add('wrong');fb.textContent='Count the fruit carefully. The answer is '+ans+'.';fb.style.color='var(--error)';document.querySelectorAll('#quizOpts .opt').forEach(x=>{if(parseInt(x.textContent)===ans)x.classList.add('correct');});}
+      updateScore();
     };
     opts.appendChild(b);
   });
