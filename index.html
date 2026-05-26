@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 2 · Addition</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --orange:#FF7926;--orange2:#E8590C;--yellow:#FFD43B;
+  --red:#FF3B3B;--green:#2F9E44;--cream:#FFFBF0;
+  --stripe1:#FF7926;--stripe2:#FFD43B;
+}
+html,body{width:100%;min-height:100vh}
+body{
+  font-family:'Nunito',sans-serif;
+  background:#FFF5E0;
+  min-height:100vh;padding:0 0 32px;
+  display:flex;flex-direction:column;align-items:center;
+}
+/* Awning stripes at top */
+.awning{
+  width:100%;height:60px;
+  background:repeating-linear-gradient(90deg,var(--stripe1) 0px,var(--stripe1) 40px,var(--stripe2) 40px,var(--stripe2) 80px);
+  position:relative;overflow:hidden;
+  box-shadow:0 4px 12px rgba(0,0,0,.2);
+}
+.awning::after{
+  content:'';position:absolute;bottom:-1px;left:0;right:0;height:20px;
+  background:repeating-linear-gradient(90deg,var(--stripe1) 0px,var(--stripe1) 40px,var(--stripe2) 40px,var(--stripe2) 80px);
+  clip-path:polygon(0 0,2.5% 100%,5% 0,7.5% 100%,10% 0,12.5% 100%,15% 0,17.5% 100%,20% 0,22.5% 100%,25% 0,27.5% 100%,30% 0,32.5% 100%,35% 0,37.5% 100%,40% 0,42.5% 100%,45% 0,47.5% 100%,50% 0,52.5% 100%,55% 0,57.5% 100%,60% 0,62.5% 100%,65% 0,67.5% 100%,70% 0,72.5% 100%,75% 0,77.5% 100%,80% 0,82.5% 100%,85% 0,87.5% 100%,90% 0,92.5% 100%,95% 0,97.5% 100%,100% 0);
+}
+.header{
+  background:var(--orange2);padding:14px 20px 10px;width:100%;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.h-title{font-family:'Fredoka One',cursive;font-size:26px;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.2)}
+.h-chip{background:var(--yellow);color:#3A2A00;font-size:12px;font-weight:900;padding:5px 14px;border-radius:20px;border:2px solid rgba(0,0,0,.1)}
+
+.page{width:100%;max-width:680px;padding:16px;display:flex;flex-direction:column;gap:20px}
+
+.mcard{
+  background:var(--cream);border-radius:24px;padding:20px;
+  box-shadow:0 6px 0 rgba(0,0,0,.1),0 2px 16px rgba(0,0,0,.08);
+  border:3px solid rgba(255,255,255,.9);position:relative;overflow:hidden;
+}
+.mcard::before{content:'';position:absolute;top:0;left:0;right:0;height:5px}
+.mcard.orange::before{background:var(--orange)}
+.mcard.red::before{background:var(--red)}
+.mcard.green::before{background:var(--green)}
+.mc-title{font-family:'Fredoka One',cursive;font-size:19px;color:#3A2A00;margin-bottom:4px}
+.hint{font-size:13px;font-weight:700;color:#8B5E1A;margin-bottom:14px;line-height:1.5}
+
+/* Baskets */
+.baskets-layout{display:flex;gap:14px;justify-content:center;align-items:flex-end;flex-wrap:wrap;margin-bottom:16px}
+.bwrap{display:flex;flex-direction:column;align-items:center;gap:6px}
+.blabel{font-family:'Fredoka One',cursive;font-size:14px;color:var(--orange2);text-transform:uppercase;letter-spacing:.06em}
+.basket{
+  width:150px;min-height:120px;
+  background:linear-gradient(180deg,#FFFBE6 0%,#FFF3CC 100%);
+  border:3px solid #FFA94D;border-radius:14px 14px 28px 28px;
+  padding:10px;display:flex;flex-wrap:wrap;gap:4px;align-content:flex-start;
+  cursor:pointer;transition:all .18s;position:relative;
+}
+.basket::after{
+  content:'';position:absolute;bottom:-14px;left:14px;right:14px;
+  height:12px;background:var(--orange);border-radius:0 0 8px 8px;
+}
+.basket:hover{border-color:var(--orange);transform:scale(1.02)}
+.basket:active{transform:scale(.97)}
+.basket-ph{font-size:12px;color:#D97706;font-weight:700;padding:10px;width:100%;text-align:center}
+.fruit{font-size:26px;line-height:1;animation:fruitPop .2s cubic-bezier(.36,1.7,.6,1);display:inline-block;user-select:none}
+@keyframes fruitPop{from{transform:scale(0)}to{transform:scale(1)}}
+.bcount{font-family:'Fredoka One',cursive;font-size:40px;color:var(--orange2);margin-top:6px}
+.bbtns{display:flex;gap:6px;margin-top:4px}
+.bbtn{
+  width:32px;height:32px;border-radius:50%;border:none;
+  font-size:18px;font-weight:900;background:var(--yellow);color:#3A2A00;
+  cursor:pointer;transition:transform .1s;box-shadow:0 2px 0 rgba(0,0,0,.12);
+}
+.bbtn:active{transform:scale(.88)}
+
+.plus-sign{font-family:'Fredoka One',cursive;font-size:52px;color:var(--yellow);align-self:center;margin-bottom:16px;text-shadow:0 3px 0 var(--orange)}
+
+.eq-preview{
+  text-align:center;
+  font-family:'Fredoka One',cursive;font-size:26px;color:#3A2A00;
+  margin:12px 0;min-height:34px;
+}
+.eq-preview .q{color:#CCC}
+
+.type-row{display:flex;align-items:center;gap:10px;justify-content:center;flex-wrap:wrap;margin:10px 0}
+.type-lbl{font-family:'Fredoka One',cursive;font-size:17px;color:#3A2A00}
+.type-inp{
+  font-family:'Fredoka One',cursive;font-size:30px;width:84px;height:58px;
+  border-radius:16px;border:3px solid #FFA94D;text-align:center;
+  color:var(--orange2);outline:none;transition:border-color .15s;background:#FFF8EC;
+  -moz-appearance:textfield;
+}
+.type-inp::-webkit-outer-spin-button,.type-inp::-webkit-inner-spin-button{-webkit-appearance:none}
+.type-inp:focus{border-color:var(--orange)}
+.check-btn{
+  background:linear-gradient(135deg,var(--orange),var(--orange2));
+  color:#fff;border:none;border-radius:16px;padding:14px 26px;
+  font-family:'Fredoka One',cursive;font-size:17px;cursor:pointer;
+  box-shadow:0 4px 0 rgba(0,0,0,.15);transition:all .18s;
+}
+.check-btn:hover{transform:scale(1.06)}
+.check-btn:active{transform:scale(.96);box-shadow:none}
+.type-fb{font-family:'Fredoka One',cursive;font-size:18px;text-align:center;min-height:24px;margin-top:6px}
+
+/* Combine zone */
+.combine-zone{display:none;flex-direction:column;align-items:center;gap:10px;margin-top:12px}
+.combined-basket{
+  min-width:190px;min-height:90px;
+  background:linear-gradient(180deg,#CCFFDD 0%,#A8F0C0 100%);
+  border:3px solid var(--green);border-radius:14px 14px 28px 28px;
+  padding:10px;display:flex;flex-wrap:wrap;gap:4px;align-content:flex-start;
+  position:relative;
+}
+.combined-basket::after{content:'';position:absolute;bottom:-14px;left:14px;right:14px;height:12px;background:var(--green);border-radius:0 0 8px 8px;}
+.combined-eq{font-family:'Fredoka One',cursive;font-size:30px;color:#1A5C25;margin-top:14px}
+.combined-eq .ans{color:var(--green);font-size:38px}
+.reset-btn{background:#fff;border:2.5px solid #FFA94D;color:var(--orange2);font-family:'Fredoka One',cursive;font-size:15px;padding:9px 22px;border-radius:14px;cursor:pointer;margin-top:8px}
+
+/* Quiz */
+.fruit-box{
+  background:#FFFBE6;border-radius:12px;padding:8px;
+  display:flex;flex-wrap:wrap;gap:4px;
+  border:2.5px solid #FDE68A;min-height:44px;max-width:170px;align-items:center;
+}
+.quiz-scene{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.opts{display:flex;gap:8px;flex-wrap:wrap}
+.opt{
+  font-family:'Fredoka One',cursive;font-size:24px;min-width:68px;height:54px;
+  border-radius:14px;border:3px solid #FDE68A;background:#fff;cursor:pointer;
+  color:#3A2A00;transition:all .14s;padding:0 12px;box-shadow:0 3px 0 rgba(0,0,0,.1);
+}
+.opt:hover{border-color:var(--orange);transform:scale(1.06);background:#FFF5EB}
+.opt.correct{background:#CCFFD0;border-color:var(--green);color:#1A5C25}
+.opt.wrong{background:#FFE0E0;border-color:#FF6B6B;color:#C92A2A}
+.quiz-fb{font-family:'Fredoka One',cursive;font-size:17px;min-height:22px;margin-top:10px;text-align:center}
+.next-btn{
+  margin-top:12px;background:linear-gradient(135deg,var(--orange),var(--orange2));
+  color:#fff;border:none;border-radius:16px;padding:12px 28px;
+  font-family:'Fredoka One',cursive;font-size:17px;cursor:pointer;
+  box-shadow:0 4px 0 rgba(0,0,0,.15);transition:all .18s;
+}
+.next-btn:hover{transform:scale(1.06)}
+</style>
+</head>
+<body>
+<div class="awning"></div>
+<div class="header">
+  <div class="h-title">🍎 Addition</div>
+  <div class="h-chip">Chapter 2</div>
+</div>
+
+<div class="page">
+
+  <!-- Basket activity -->
+  <div class="mcard orange">
+    <div class="mc-title">🧺 Fill the baskets with fruit!</div>
+    <div class="hint">Tap Basket A to add 🍎 — tap Basket B to add 🍏. Then work out the total yourself!</div>
+
+    <div class="baskets-layout">
+      <div class="bwrap">
+        <span class="blabel">Basket A</span>
+        <div class="basket" id="basketA" onclick="addFruit('A')">
+          <span class="basket-ph" id="hintA">👆 Tap to add!</span>
+        </div>
+        <div class="bcount" id="countA">0</div>
+        <div class="bbtns">
+          <button class="bbtn" onclick="removeFruit('A')">−</button>
+          <button class="bbtn" onclick="addFruit('A')">+</button>
+        </div>
+      </div>
+      <div class="plus-sign">+</div>
+      <div class="bwrap">
+        <span class="blabel">Basket B</span>
+        <div class="basket" id="basketB" onclick="addFruit('B')">
+          <span class="basket-ph" id="hintB">👆 Tap to add!</span>
+        </div>
+        <div class="bcount" id="countB">0</div>
+        <div class="bbtns">
+          <button class="bbtn" onclick="removeFruit('B')">−</button>
+          <button class="bbtn" onclick="addFruit('B')">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="eq-preview"><span id="epA">0</span> + <span id="epB">0</span> = <span class="q">?</span></div>
+
+    <div class="type-row">
+      <span class="type-lbl">I think the answer is</span>
+      <input type="number" class="type-inp" id="myAnswer" min="0" max="18" placeholder="?" oninput="clearFb()">
+      <button class="check-btn" onclick="checkAnswer()">Check! ✓</button>
+    </div>
+    <div class="type-fb" id="typeFb"></div>
+
+    <div class="combine-zone" id="combineZone">
+      <div style="font-family:'Fredoka One',cursive;font-size:16px;color:#1A5C25">All together! 🎉</div>
+      <div class="combined-basket" id="combinedBasket"></div>
+      <div class="combined-eq" id="combinedEq"></div>
+      <button class="reset-btn" onclick="resetBaskets()">Start fresh ↻</button>
+    </div>
+  </div>
+
+  <!-- Quiz -->
+  <div class="mcard green">
+    <div class="mc-title">🌟 Picture question!</div>
+    <div class="hint">Count the fruit in each box, add them, then pick the right answer!</div>
+    <div class="quiz-scene" id="quizScene"></div>
+    <div style="font-family:'Fredoka One',cursive;font-size:18px;color:#3A2A00;margin-bottom:4px" id="quizEq"></div>
+    <div class="opts" id="quizOpts"></div>
+    <div class="quiz-fb" id="quizFb"></div>
+    <button class="next-btn" onclick="newQuiz()">Next question ➡️</button>
+  </div>
+
+</div>
+
+<script>
+let nA=0,nB=0,answered=false;
+
+function addFruit(side){
+  if(answered)return;
+  const MAX=9;
+  if(side==='A'&&nA<MAX){
+    nA++;
+    const b=document.getElementById('basketA');
+    const h=document.getElementById('hintA');if(h)h.remove();
+    const sp=document.createElement('span');sp.className='fruit';sp.textContent='🍎';b.appendChild(sp);
+  } else if(side==='B'&&nB<MAX){
+    nB++;
+    const b=document.getElementById('basketB');
+    const h=document.getElementById('hintB');if(h)h.remove();
+    const sp=document.createElement('span');sp.className='fruit';sp.textContent='🍏';b.appendChild(sp);
+  }
+  update();
+}
+function removeFruit(side){
+  if(answered)return;
+  if(side==='A'&&nA>0){nA--;const b=document.getElementById('basketA');const l=b.querySelector('.fruit:last-child');if(l)l.remove();if(!nA)b.innerHTML='<span class="basket-ph" id="hintA">👆 Tap to add!</span>';}
+  else if(side==='B'&&nB>0){nB--;const b=document.getElementById('basketB');const l=b.querySelector('.fruit:last-child');if(l)l.remove();if(!nB)b.innerHTML='<span class="basket-ph" id="hintB">👆 Tap to add!</span>';}
+  update();
+}
+function update(){
+  document.getElementById('countA').textContent=nA;document.getElementById('countB').textContent=nB;
+  document.getElementById('epA').textContent=nA;document.getElementById('epB').textContent=nB;
+}
+function clearFb(){document.getElementById('typeFb').textContent='';}
+function checkAnswer(){
+  if(!nA&&!nB){document.getElementById('typeFb').textContent='Add some fruit first! 🍎';document.getElementById('typeFb').style.color='#D97706';return;}
+  const val=parseInt(document.getElementById('myAnswer').value);
+  const correct=nA+nB;const fb=document.getElementById('typeFb');
+  if(val===correct){fb.textContent='🎉 Yes! '+nA+' + '+nB+' = '+correct+'! Brilliant! ⭐';fb.style.color='#2F9E44';showCombined();answered=true;}
+  else if(isNaN(val)){fb.textContent='Type a number in the box!';fb.style.color='#D97706';}
+  else if(val<correct){fb.textContent='Too small! Count all the fruit — both baskets!';fb.style.color='#E03131';}
+  else{fb.textContent='Too big! Count more carefully!';fb.style.color='#E03131';}
+}
+function showCombined(){
+  const cz=document.getElementById('combineZone');cz.style.display='flex';
+  const cb=document.getElementById('combinedBasket');cb.innerHTML='';
+  for(let i=0;i<nA;i++){const s=document.createElement('span');s.className='fruit';s.textContent='🍎';cb.appendChild(s);}
+  for(let i=0;i<nB;i++){const s=document.createElement('span');s.className='fruit';s.textContent='🍏';cb.appendChild(s);}
+  document.getElementById('combinedEq').innerHTML=nA+' + '+nB+' = <span class="ans">'+(nA+nB)+'</span>';
+}
+function resetBaskets(){
+  nA=0;nB=0;answered=false;
+  document.getElementById('basketA').innerHTML='<span class="basket-ph" id="hintA">👆 Tap to add!</span>';
+  document.getElementById('basketB').innerHTML='<span class="basket-ph" id="hintB">👆 Tap to add!</span>';
+  document.getElementById('countA').textContent='0';document.getElementById('countB').textContent='0';
+  document.getElementById('epA').textContent='0';document.getElementById('epB').textContent='0';
+  document.getElementById('myAnswer').value='';document.getElementById('typeFb').textContent='';
+  document.getElementById('combineZone').style.display='none';
+}
+
+/* Quiz */
+let qa=0,qb=0;
+const EMOJIS=['🍎','🍊','🍋','🍇','🍓','🫐'];
+function newQuiz(){
+  qa=Math.floor(Math.random()*7)+1;qb=Math.floor(Math.random()*7)+1;
+  const ans=qa+qb;const em=EMOJIS[Math.floor(Math.random()*EMOJIS.length)];
+  document.getElementById('quizFb').textContent='';
+  const scene=document.getElementById('quizScene');scene.innerHTML='';
+  const boxA=document.createElement('div');boxA.className='fruit-box';
+  for(let i=0;i<qa;i++){const s=document.createElement('span');s.style.fontSize='22px';s.textContent=em;boxA.appendChild(s);}
+  const pl=document.createElement('span');pl.style.cssText='font-family:"Fredoka One",cursive;font-size:34px;color:#FFA94D;align-self:center;';pl.textContent='+';
+  const boxB=document.createElement('div');boxB.className='fruit-box';boxB.style.background='#E8FFEE';boxB.style.borderColor='#A7F3D0';
+  for(let i=0;i<qb;i++){const s=document.createElement('span');s.style.fontSize='22px';s.textContent=em;boxB.appendChild(s);}
+  const eq2=document.createElement('span');eq2.style.cssText='font-family:"Fredoka One",cursive;font-size:34px;color:#FFA94D;align-self:center;';eq2.textContent='= ?';
+  scene.appendChild(boxA);scene.appendChild(pl);scene.appendChild(boxB);scene.appendChild(eq2);
+  document.getElementById('quizEq').textContent=qa+' + '+qb+' = ?';
+  const pool=new Set([ans]);
+  while(pool.size<4){const w=ans+[-2,-1,1,2][Math.floor(Math.random()*4)];if(w>0&&w<=16)pool.add(w);}
+  const opts=document.getElementById('quizOpts');opts.innerHTML='';
+  [...pool].sort(()=>Math.random()-.5).forEach(n=>{
+    const b=document.createElement('button');b.className='opt';b.textContent=n;
+    b.onclick=()=>{
+      document.querySelectorAll('#quizOpts .opt').forEach(x=>x.onclick=null);
+      const fb=document.getElementById('quizFb');
+      if(n===ans){b.classList.add('correct');fb.textContent='🎉 '+qa+' + '+qb+' = '+ans+'! Correct! ⭐';fb.style.color='#2F9E44';}
+      else{b.classList.add('wrong');fb.textContent='Count the fruit carefully! The answer is '+ans+'.';fb.style.color='#E03131';document.querySelectorAll('#quizOpts .opt').forEach(x=>{if(parseInt(x.textContent)===ans)x.classList.add('correct');});}
+    };
+    opts.appendChild(b);
+  });
+}
+newQuiz();
+</script>
+</body>
+</html>
