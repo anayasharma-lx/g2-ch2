@@ -23,22 +23,8 @@ html,body{width:100%;min-height:100vh;font-family:'Poppins',sans-serif;backgroun
 .cb{position:absolute;top:0;left:0;bottom:0;width:5px;border-radius:var(--r) 0 0 var(--r);background:var(--ac)}
 .ct{font-family:'Grandstander',cursive;font-size:15px;font-weight:800;padding-left:14px;margin-bottom:3px;line-height:1.3}
 .cs{font-size:12px;color:var(--ink2);padding-left:14px;margin-bottom:14px;line-height:1.6}
-/* stepper */
-.cr{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
-.cg{display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.03);border-radius:12px;padding:8px 12px;border:1.5px solid rgba(0,0,0,.06)}
-.cl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;min-width:48px}
-.sb{width:34px;height:34px;border-radius:50%;border:none;font-size:18px;font-weight:900;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.12s;box-shadow:0 2px 6px rgba(0,0,0,.15)}
-.sb:active{transform:scale(.88)}
-.sv{font-family:'Grandstander',cursive;font-size:28px;font-weight:900;min-width:28px;text-align:center}
-/* blocks */
-.bx{background:rgba(0,0,0,.02);border-radius:14px;border:1.5px solid rgba(0,0,0,.06);padding:12px;min-height:60px;display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;margin-bottom:14px}
-.flat{display:grid;grid-template-columns:repeat(10,8px);gap:1px}.flat-c{width:8px;height:8px;border-radius:1px;opacity:.8}
-.rod{display:flex;flex-direction:column;gap:1px}.rod-c{width:10px;height:10px;border-radius:1px;opacity:.8}
-.units{display:flex;flex-wrap:wrap;gap:2px;max-width:58px;align-self:flex-end}.unit-c{width:10px;height:10px;border-radius:2px;opacity:.8}
-.sep{width:1px;background:#D1D5DB;align-self:stretch;margin:0 3px}
-/* options */
 .opts{display:flex;gap:8px;flex-wrap:wrap}
-.opt{font-family:'Grandstander',cursive;font-size:22px;font-weight:800;min-width:72px;height:54px;border-radius:16px;border:2.5px solid rgba(0,0,0,.08);background:#fff;cursor:pointer;color:var(--ink);display:flex;align-items:center;justify-content:center;transition:.15s;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.opt{font-family:'Grandstander',cursive;font-size:20px;font-weight:800;min-width:72px;height:54px;border-radius:16px;border:2.5px solid rgba(0,0,0,.08);background:#fff;cursor:pointer;color:var(--ink);display:flex;align-items:center;justify-content:center;transition:.15s;box-shadow:0 2px 8px rgba(0,0,0,.05);padding:0 12px}
 .opt:hover{border-color:var(--ac);transform:translateY(-2px)}
 .opt.ok{background:#DCFCE7;border-color:var(--ok);color:#15803D;animation:pop .3s}
 .opt.no{background:#FEE2E2;border-color:var(--no);color:var(--no);animation:shk .35s}
@@ -52,18 +38,14 @@ html,body{width:100%;min-height:100vh;font-family:'Poppins',sans-serif;backgroun
 .btn-p{background:var(--ac);color:#fff}
 .btn-g{background:#fff;color:var(--ink2);border:1.5px solid rgba(0,0,0,.1)}
 .btn-g:hover{border-color:var(--ac);color:var(--ac)}
-.chal{background:rgba(0,0,0,.02);border-radius:16px;padding:14px;border:1.5px dashed rgba(0,0,0,.1);margin-top:10px}
-.chal-q{font-family:'Grandstander',cursive;font-size:14px;font-weight:800;margin-bottom:10px}
-.chal-q b{color:var(--ac);font-size:22px}
-canvas{display:block;border-radius:10px}
-/* drag & tap shared */
-.tappable{cursor:pointer;user-select:none;transition:transform .15s}
-.tappable:hover{transform:scale(1.08)}
-.tappable:active{transform:scale(.92)}
-/* misc */
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.pill{display:inline-block;font-family:'Grandstander',cursive;font-size:14px;font-weight:800;padding:6px 18px;border-radius:30px}
 .big{font-family:'Grandstander',cursive;font-weight:900;line-height:1;text-align:center}
+.qbox{background:rgba(0,0,0,.02);border-radius:14px;padding:14px 16px;border:1.5px solid rgba(0,0,0,.06);margin-bottom:14px;font-size:15px;font-weight:600;line-height:1.7;color:var(--ink)}
+.qtag{display:inline-block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;background:var(--ac);color:#fff;border-radius:20px;padding:2px 10px;margin-bottom:8px}
+/* mode toggle */
+.mode-row{display:flex;gap:6px;margin-bottom:14px}
+.mode-btn{flex:1;padding:8px 0;font-family:'Grandstander',cursive;font-size:12px;font-weight:800;border:2px solid rgba(0,0,0,.1);border-radius:10px;background:#fff;cursor:pointer;color:var(--ink2);transition:.15s}
+.mode-btn.on{background:var(--ac);color:#fff;border-color:var(--ac)}
 </style>
 </head>
 <body>
@@ -79,42 +61,36 @@ canvas{display:block;border-radius:10px}
 
 <div class="pnl on" id="p-learn">
   <div class="card"><div class="cb"></div>
-    <div class="ct">Add fruit to the baskets</div>
-    <div class="cs">Tap each basket to add fruit. Watch the addition equation build as you go.</div>
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:16px">
-      <div style="text-align:center;flex:1;min-width:120px;max-width:180px">
-        <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--ac);margin-bottom:6px">Basket A</div>
-        <div id="bA" onclick="addF('A')" style="min-height:100px;background:rgba(0,0,0,.02);border:2px solid rgba(0,0,0,.06);border-radius:14px 14px 24px 24px;padding:10px;display:flex;flex-wrap:wrap;gap:4px;align-content:flex-start;cursor:pointer;transition:.15s" class="tappable">
-          <span style="font-size:12px;color:var(--ink2);width:100%;text-align:center;padding:8px 0" id="hA">Tap to add 🍎</span>
-        </div>
-        <div class="big" style="font-size:36px;color:var(--ac);margin-top:6px" id="cA">0</div>
-        <div class="row" style="justify-content:center;margin-top:4px"><button class="sb" style="background:var(--ac);width:28px;height:28px;font-size:14px" onclick="rmF('A')">−</button><button class="sb" style="background:var(--ac);width:28px;height:28px;font-size:14px" onclick="addF('A')">+</button></div>
-      </div>
-      <div class="big" style="font-size:32px;color:rgba(0,0,0,.15);align-self:center;margin-top:20px">+</div>
-      <div style="text-align:center;flex:1;min-width:120px;max-width:180px">
-        <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#16A34A;margin-bottom:6px">Basket B</div>
-        <div id="bB" onclick="addF('B')" style="min-height:100px;background:rgba(22,163,74,.04);border:2px solid rgba(22,163,74,.12);border-radius:14px 14px 24px 24px;padding:10px;display:flex;flex-wrap:wrap;gap:4px;align-content:flex-start;cursor:pointer;transition:.15s" class="tappable">
-          <span style="font-size:12px;color:var(--ink2);width:100%;text-align:center;padding:8px 0" id="hB">Tap to add 🍊</span>
-        </div>
-        <div class="big" style="font-size:36px;color:#16A34A;margin-top:6px" id="cB">0</div>
-        <div class="row" style="justify-content:center;margin-top:4px"><button class="sb" style="background:#16A34A;width:28px;height:28px;font-size:14px" onclick="rmF('B')">−</button><button class="sb" style="background:#16A34A;width:28px;height:28px;font-size:14px" onclick="addF('B')">+</button></div>
-      </div>
+    <div class="ct">Column method addition</div>
+    <div class="cs">Type the digit for each highlighted column. Work from right to left — Ones first, then Tens, then Hundreds.</div>
+
+    <!-- mode toggle: 2-digit or 3-digit -->
+    <div class="mode-row">
+      <button class="mode-btn on" id="m2d" onclick="setMode(2)">2-digit + 2-digit</button>
+      <button class="mode-btn" id="m3d" onclick="setMode(3)">3-digit + 2-digit</button>
     </div>
-    <div style="text-align:center;background:rgba(0,0,0,.02);border-radius:14px;padding:14px;border:1.5px solid rgba(0,0,0,.06)">
-      <div class="big" style="font-size:24px;color:var(--ink)"><span id="eA">0</span> + <span id="eB">0</span> = <span id="eT" style="color:var(--ac)">0</span></div>
+
+    <div style="display:flex;justify-content:center;margin-bottom:16px">
+      <div id="sumT" style="display:inline-grid;gap:0;align-items:center"></div>
     </div>
-    <div style="text-align:center;margin-top:10px"><button class="btn btn-g" onclick="clr()">Start fresh ↻</button></div>
+    <div style="background:rgba(0,0,0,.02);border-radius:14px;padding:14px;border:1.5px solid rgba(0,0,0,.06);margin-bottom:12px;font-size:13px;font-weight:600;color:var(--ink);line-height:1.8;min-height:50px" id="inst">Press "New problem" to start.</div>
+    <div class="fb" id="cf"></div>
+    <div id="doneBox" style="display:none;background:#DCFCE7;border-radius:14px;padding:14px;text-align:center;font-family:Grandstander,cursive;font-size:22px;font-weight:900;color:var(--ok);margin-bottom:10px"></div>
+    <div class="row">
+      <button class="btn btn-p" id="goB" onclick="ck2()" style="display:none">Check ✓</button>
+      <button class="btn btn-g" onclick="np2()">New problem ↻</button>
+    </div>
   </div>
 </div>
+
 <div class="pnl" id="p-practice">
   <div class="card"><div class="cb"></div>
-    <div class="ct">Count and add</div>
-    <div class="cs">Count the fruit in each group, add them together, pick the answer.</div>
-    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px" id="qScene"></div>
-    <div class="big" style="font-size:20px;color:var(--ink);margin-bottom:14px" id="qEq"></div>
-    <div class="opts" id="qO"></div>
-    <div class="fb" id="qF"></div>
-    <button class="nbtn" onclick="nwQ()">Next →</button>
+    <div class="ct">Solve it</div>
+    <div class="cs">Some questions are calculations, some are word problems. Pick the right answer.</div>
+    <div class="qbox" id="p2Q"></div>
+    <div class="opts" id="p2O"></div>
+    <div class="fb" id="p2F"></div>
+    <button class="nbtn" onclick="np2p()">Next →</button>
   </div>
 </div>
 
@@ -122,33 +98,156 @@ canvas{display:block;border-radius:10px}
 <script>
 function sw(n){document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('on',t.textContent.toLowerCase()===n)});document.querySelectorAll('.pnl').forEach(function(p){var a=p.id==='p-'+n;p.classList.toggle('on',a);p.style.display=a?'flex':'none'})}
 document.getElementById('p-practice').style.display='none';
-function pool4(ans,lo,hi){var s=new Set([ans]);var i=0;while(s.size<4&&i<50){i++;var w=ans+Math.round(Math.random()*8-4);if(w>=lo&&w<=hi&&w!==ans)s.add(w)}return[...s].sort(function(){return Math.random()-.5})}
-function mkOpts(cid,items,correct,fid){var c=document.getElementById(cid);c.innerHTML='';items.forEach(function(n){var b=document.createElement('button');b.className='opt';b.textContent=n;b.onclick=function(){c.querySelectorAll('.opt').forEach(function(x){x.onclick=null});var fb=document.getElementById(fid);if(String(n)===String(correct)){b.classList.add('ok');fb.textContent='🎉 Correct!';fb.style.color='var(--ok)'}else{b.classList.add('no');fb.textContent='The answer is '+correct+'.';fb.style.color='var(--no)';c.querySelectorAll('.opt').forEach(function(x){if(String(x.textContent)===String(correct))x.classList.add('ok')})}};c.appendChild(b)})}
 
-var nA=0,nB=0,ans=false;
-function addF(s){if(ans)return;if(s==='A'&&nA<9){nA++;var b=document.getElementById('bA');var h=document.getElementById('hA');if(h)h.remove();var sp=document.createElement('span');sp.style.cssText='font-size:26px;line-height:1';sp.textContent='🍎';b.appendChild(sp)}else if(s==='B'&&nB<9){nB++;var b=document.getElementById('bB');var h=document.getElementById('hB');if(h)h.remove();var sp=document.createElement('span');sp.style.cssText='font-size:26px;line-height:1';sp.textContent='🍊';b.appendChild(sp)}upd()}
-function rmF(s){if(ans)return;if(s==='A'&&nA>0){nA--;var b=document.getElementById('bA');var l=b.querySelector('span:last-child');if(l&&l.textContent!=='Tap to add 🍎')l.remove();if(!nA)b.innerHTML='<span style="font-size:12px;color:var(--ink2);width:100%;text-align:center;padding:8px 0" id="hA">Tap to add 🍎</span>'}else if(s==='B'&&nB>0){nB--;var b=document.getElementById('bB');var l=b.querySelector('span:last-child');if(l&&l.textContent!=='Tap to add 🍊')l.remove();if(!nB)b.innerHTML='<span style="font-size:12px;color:var(--ink2);width:100%;text-align:center;padding:8px 0" id="hB">Tap to add 🍊</span>'}upd()}
-function upd(){document.getElementById('cA').textContent=nA;document.getElementById('cB').textContent=nB;document.getElementById('eA').textContent=nA;document.getElementById('eB').textContent=nB;document.getElementById('eT').textContent=nA+nB}
-function clr(){nA=0;nB=0;ans=false;document.getElementById('bA').innerHTML='<span style="font-size:12px;color:var(--ink2);width:100%;text-align:center;padding:8px 0" id="hA">Tap to add 🍎</span>';document.getElementById('bB').innerHTML='<span style="font-size:12px;color:var(--ink2);width:100%;text-align:center;padding:8px 0" id="hB">Tap to add 🍊</span>';upd()}
-var EM=['🍎','🍊','🍋','🍇','🍓','🫐','🍑'];var qa=0,qb=0;
-function nwQ(){
-  qa=Math.floor(Math.random()*7)+1;qb=Math.floor(Math.random()*7)+1;var a=qa+qb;
-  var e1=EM[Math.floor(Math.random()*EM.length)],e2=EM[Math.floor(Math.random()*EM.length)];
-  while(e2===e1)e2=EM[Math.floor(Math.random()*EM.length)];
-  document.getElementById('qF').textContent='';
-  var sc=document.getElementById('qScene');sc.innerHTML='';
-  var bxA=document.createElement('div');bxA.style.cssText='display:flex;flex-wrap:wrap;gap:3px;padding:8px;border-radius:10px;border:1.5px solid rgba(0,0,0,.08);background:rgba(0,0,0,.02);max-width:160px';
-  for(var i=0;i<qa;i++){var s=document.createElement('span');s.style.fontSize='22px';s.textContent=e1;bxA.appendChild(s)}
-  var pl=document.createElement('span');pl.className='big';pl.style.cssText='font-size:28px;color:rgba(0,0,0,.15)';pl.textContent='+';
-  var bxB=document.createElement('div');bxB.style.cssText='display:flex;flex-wrap:wrap;gap:3px;padding:8px;border-radius:10px;border:1.5px solid rgba(0,0,0,.08);background:rgba(0,0,0,.02);max-width:160px';
-  for(var i=0;i<qb;i++){var s=document.createElement('span');s.style.fontSize='22px';s.textContent=e2;bxB.appendChild(s)}
-  var eq=document.createElement('span');eq.className='big';eq.style.cssText='font-size:28px;color:rgba(0,0,0,.15)';eq.textContent='= ?';
-  sc.appendChild(bxA);sc.appendChild(pl);sc.appendChild(bxB);sc.appendChild(eq);
-  document.getElementById('qEq').textContent=qa+' + '+qb+' = ?';
-  mkOpts('qO',pool4(a,2,16),a,'qF');
+function rn(a,b){return Math.floor(Math.random()*(b-a+1))+a}
+function pool4(ans,lo,hi){var s=new Set([ans]);var i=0;while(s.size<4&&i<60){i++;var w=ans+rn(-15,15);if(w>=lo&&w<=hi&&w!==ans)s.add(w)}return[...s].sort(function(){return Math.random()-.5})}
+
+function mkOpts(items,correct){
+  var c=document.getElementById('p2O');c.innerHTML='';
+  var fb=document.getElementById('p2F');fb.textContent='';
+  items.forEach(function(n){
+    var b=document.createElement('button');b.className='opt';b.textContent=n;
+    b.onclick=function(){
+      c.querySelectorAll('.opt').forEach(function(x){x.onclick=null});
+      if(n===correct){b.classList.add('ok');fb.innerHTML='<div style="background:#DCFCE7;border:2px solid #86EFAC;border-radius:12px;padding:12px;animation:pop .3s">🎉 Correct!</div>';fb.style.color='var(--ok)'}
+      else{b.classList.add('no');fb.textContent='The answer is '+correct+'.';fb.style.color='var(--no)';c.querySelectorAll('.opt').forEach(function(x){if(x.textContent===String(correct))x.classList.add('ok')})}
+    };
+    c.appendChild(b);
+  });
 }
-nwQ();
 
+/* ── Learn: column method ── */
+var curMode=2; /* 2 = 2-digit+2-digit, 3 = 3-digit+2-digit */
+var N1,N2,colData,nCols,step2;
+
+function setMode(m){
+  curMode=m;
+  document.getElementById('m2d').classList.toggle('on',m===2);
+  document.getElementById('m3d').classList.toggle('on',m===3);
+  np2();
+}
+
+function gen2(){
+  if(curMode===2){N1=rn(11,99);N2=rn(11,99);}
+  else{N1=rn(100,499);N2=rn(11,99);}
+}
+
+function init2(){
+  /* always show H,T,O columns — pad shorter number with 0 */
+  nCols=3;
+  var h1=Math.floor(N1/100),t1=Math.floor((N1%100)/10),o1=N1%10;
+  var h2=0,              t2=Math.floor((N2%100)/10),o2=N2%10;
+  /* build column data right-to-left */
+  colData=[];var carry=0;
+  var d1=[h1,t1,o1],d2=[h2,t2,o2];
+  for(var i=2;i>=0;i--){
+    var sm=d1[i]+d2[i]+carry;
+    colData[i]={d1:d1[i],d2:d2[i],ci:carry,sm:sm,dg:sm%10,co:Math.floor(sm/10)};
+    carry=colData[i].co;
+  }
+  /* if result has 4 digits (carry out of H), add extra column */
+  if(carry>0){nCols=4;colData.unshift({d1:0,d2:0,ci:carry,sm:carry,dg:carry,co:0})}
+  step2=nCols-1;
+}
+
+function draw2(){
+  var lbls4=['Th','H','T','O'],lblsBase=nCols===4?lbls4:['H','T','O'];
+  var cur=step2;
+  var solved=new Set();for(var i=nCols-1;i>step2;i--)solved.add(i);
+  var cW='44px '+Array(nCols).fill('56px').join(' ');
+  var tbl=document.getElementById('sumT');tbl.style.gridTemplateColumns=cW;tbl.innerHTML='';
+
+  /* header row */
+  tbl.innerHTML+='<div></div>';
+  for(var i=0;i<nCols;i++)tbl.innerHTML+='<div style="height:24px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:'+(i===cur?'var(--ac)':'var(--ink2)')+'">'+lblsBase[i]+'</div>';
+
+  /* carry row */
+  tbl.innerHTML+='<div></div>';
+  for(var i=0;i<nCols;i++){
+    var showC=i+1<nCols&&solved.has(i+1)&&colData[i+1]&&colData[i+1].co>0;
+    tbl.innerHTML+='<div style="height:22px;display:flex;align-items:center;justify-content:center;font-family:Grandstander,cursive;font-size:16px;font-weight:900;color:#D97706">'+(showC?'<sup>'+colData[i+1].co+'</sup>':'')+'</div>';
+  }
+
+  /* top number row */
+  tbl.innerHTML+='<div></div>';
+  for(var i=0;i<nCols;i++){
+    var d=colData[i].d1;
+    tbl.innerHTML+='<div style="width:56px;height:52px;display:flex;align-items:center;justify-content:center;font-family:Grandstander,cursive;font-size:36px;font-weight:900;color:'+(d===0&&i<nCols-3?'#D1D5DB':'var(--ink)')+';border-radius:9px;'+(i===cur?'background:rgba(0,0,0,.04)':'')+'">'+d+'</div>';
+  }
+
+  /* + sign + bottom number row */
+  tbl.innerHTML+='<div style="width:44px;height:52px;display:flex;align-items:center;justify-content:center;font-family:Grandstander,cursive;font-size:28px;font-weight:900;color:var(--ac)">+</div>';
+  for(var i=0;i<nCols;i++){
+    var d=colData[i].d2;
+    tbl.innerHTML+='<div style="width:56px;height:52px;display:flex;align-items:center;justify-content:center;font-family:Grandstander,cursive;font-size:36px;font-weight:900;color:'+(d===0&&i<nCols-3?'#D1D5DB':'var(--ink)')+';border-radius:9px;'+(i===cur?'background:rgba(0,0,0,.04)':'')+'">'+d+'</div>';
+  }
+
+  /* line */
+  tbl.innerHTML+='<div></div><div style="grid-column:2/'+(2+nCols)+';height:3px;background:var(--ink);border-radius:2px;margin:2px 0"></div>';
+  for(var x=1;x<nCols;x++)tbl.innerHTML+='<div style="display:none"></div>';
+
+  /* answer row */
+  tbl.innerHTML+='<div></div>';
+  for(var i=0;i<nCols;i++){
+    if(solved.has(i))
+      tbl.innerHTML+='<div style="width:56px;height:58px;display:flex;align-items:center;justify-content:center;font-family:Grandstander,cursive;font-size:36px;font-weight:900;color:var(--ok);border-radius:12px;background:#DCFCE7;border:2px solid #86EFAC">'+colData[i].dg+'</div>';
+    else if(i===cur)
+      tbl.innerHTML+='<div style="width:56px;height:58px;display:flex;align-items:center;justify-content:center;border-radius:12px;border:2px solid var(--ac);background:rgba(0,0,0,.02)" id="curC"><input id="curI" type="number" min="0" max="9" placeholder="?" autocomplete="off" style="font-family:Grandstander,cursive;font-size:36px;font-weight:900;width:48px;height:48px;border:none;background:transparent;text-align:center;color:var(--ink);outline:none;-moz-appearance:textfield"></div>';
+    else
+      tbl.innerHTML+='<div style="width:56px;height:58px;display:flex;align-items:center;justify-content:center;font-family:Grandstander,cursive;font-size:32px;color:#D1D5DB">_</div>';
+  }
+
+  var inp=document.getElementById('curI');
+  if(inp){inp.oninput=function(){if(inp.value.length>1)inp.value=inp.value.slice(-1)};inp.onkeydown=function(e){if(e.key==='Enter')ck2()};inp.focus()}
+}
+
+function bi2(){
+  var lbls=nCols===4?['thousands','hundreds','tens','ones']:['hundreds','tens','ones'];
+  var cur=step2;var cd=colData[cur];var col=lbls[cur];
+  var h='<b>'+col.charAt(0).toUpperCase()+col.slice(1)+' column:</b> What is '+cd.d1+' + '+cd.d2;
+  if(cd.ci>0)h+=' + <span style="color:#D97706;font-weight:900">'+cd.ci+' (carried)</span>';
+  h+='?';
+  if(cd.sm>=10)h+='<br>💡 The answer is more than 9 — write the ones digit and carry the '+cd.co+'.';
+  document.getElementById('inst').innerHTML=h;
+}
+
+function ck2(){
+  var inp=document.getElementById('curI');if(!inp)return;
+  var v=parseInt(inp.value);var fb=document.getElementById('cf');
+  if(isNaN(v)||v<0||v>9){fb.textContent='Type a digit 0–9.';fb.style.color='var(--no)';inp.value='';inp.focus();return}
+  var cor=colData[step2].dg;
+  if(v===cor){
+    fb.textContent='✓';fb.style.color='var(--ok)';step2--;
+    setTimeout(function(){fb.textContent='';
+      if(step2<0){draw2();document.getElementById('doneBox').style.display='block';document.getElementById('doneBox').textContent='🎉 '+N1+' + '+N2+' = '+(N1+N2);document.getElementById('inst').style.opacity='.3';document.getElementById('goB').style.display='none'}
+      else{draw2();bi2()}},450);
+  } else {fb.textContent='Not quite — try again!';fb.style.color='var(--no)';inp.value='';inp.focus()}
+}
+
+function np2(){gen2();init2();document.getElementById('doneBox').style.display='none';document.getElementById('inst').style.opacity='1';document.getElementById('goB').style.display='inline-block';document.getElementById('cf').textContent='';draw2();bi2()}
+np2();
+
+/* ── Practice: word problems + calculations ── */
+var ADD_WORDS=[
+  function(a,b){return{tag:'Word problem',q:'Riya collected <b>'+a+'</b> stickers. Her friend gave her <b>'+b+'</b> more. How many stickers does she have now?',ans:a+b}},
+  function(a,b){return{tag:'Word problem',q:'A train had <b>'+a+'</b> passengers. At the next stop, <b>'+b+'</b> more boarded. How many passengers in total?',ans:a+b}},
+  function(a,b){return{tag:'Word problem',q:'Arjun read <b>'+a+'</b> pages on Monday and <b>'+b+'</b> pages on Tuesday. How many pages did he read altogether?',ans:a+b}},
+  function(a,b){return{tag:'Word problem',q:'A shop sold <b>'+a+'</b> bananas in the morning and <b>'+b+'</b> in the evening. How many bananas were sold in all?',ans:a+b}},
+  function(a,b){return{tag:'Word problem',q:'Class A has <b>'+a+'</b> students and Class B has <b>'+b+'</b> students. What is the total number of students?',ans:a+b}},
+  function(a,b){return{tag:'Word problem',q:'Meera scored <b>'+a+'</b> runs in the first match and <b>'+b+'</b> runs in the second match. What is her total score?',ans:a+b}},
+  function(a,b){return{tag:'Calculation',q:'<span style="font-family:Grandstander,cursive;font-size:26px;font-weight:900">'+a+' + '+b+' = ?</span>',ans:a+b}},
+];
+
+function np2p(){
+  /* mix of 2-digit+2-digit and 3-digit+2-digit */
+  var is3=Math.random()<0.5;
+  var a=is3?rn(100,499):rn(11,99),b=rn(11,99);
+  var gen=ADD_WORDS[Math.floor(Math.random()*ADD_WORDS.length)];
+  var q=gen(a,b);
+  document.getElementById('p2Q').innerHTML='<div class="qtag">'+q.tag+'</div><div>'+q.q+'</div>';
+  mkOpts(pool4(q.ans,22,600),q.ans);
+}
+np2p();
 </script>
 </body>
 </html>
